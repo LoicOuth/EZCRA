@@ -1,0 +1,77 @@
+<p-toast></p-toast>
+<div class="flex flex-column align-items-center w-full">
+    <loader *ngIf="isLoading" text="Preview loading..."></loader>
+    <h2>From {{generateInformation.dateRange[0].toLocaleDateString('UTC')}} to
+        {{generateInformation.dateRange[1].toLocaleDateString('UTC')}}</h2>
+    <div [style.visibility]="isLoading ? 'collapse' : 'visible'" id="previewTable"
+        class="flex justify-content-center w-full">
+        <table>
+            <caption class="hidden">Generate by EzCra</caption>
+            <tr>
+                <td class="br bb">
+                </td>
+                <td class="br bb" style="width: 250px;">
+                    Tâche</td>
+                <td class="br bb" style="width: 250px;">
+                    Description</td>
+                <td class="br bb">
+                    Etat (en cours/Terminée)</td>
+                <td class="br bb">
+                    Temps passé</td>
+                <td class="br bb" style="width: 250px;">
+                    Ressource mobilisées</td>
+                <td class="bb">Liens</td>
+            </tr>
+            <tbody>
+                <tr id="mon" class="bb">
+                    <td class="br">Lundi</td>
+                    <td class="br"></td>
+                    <td class="br"></td>
+                    <td class="br"></td>
+                    <td class="br"></td>
+                    <td class="br"></td>
+                    <td class="br"></td>
+                </tr>
+                <tr id="tue" class="bb">
+                    <td class="br">Mardi</td>
+                    <td class="br"></td>
+                    <td class="br"></td>
+                    <td class="br"></td>
+                    <td class="br"></td>
+                    <td class="br"></td>
+                    <td class="br"></td>
+                </tr>
+                <tr id="wen" class="bb">
+                    <td class="br">Mercredi</td>
+                    <td class="br"></td>
+                    <td class="br"></td>
+                    <td class="br"></td>
+                    <td class="br"></td>
+                    <td class="br"></td>
+                    <td class="br"></td>
+                </tr>
+                <tr id="thu" class="bb">
+                    <td class="br">Jeudi</td>
+                    <td class="br"></td>
+                    <td class="br"></td>
+                    <td class="br"></td>
+                    <td class="br"></td>
+                    <td class="br"></td>
+                    <td class="br"></td>
+                </tr>
+                <tr id="fri" class="bb">
+                    <td class="br">Vendredi</td>
+                    <td class="br"></td>
+                    <td class="br"></td>
+                    <td class="br"></td>
+                    <td class="br"></td>
+                    <td class="br"></td>
+                    <td class="br"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <step-footer class="md:w-5 w-11 my-8" [showBack]="true" (onNextClick)="nextPage()"></step-footer>
+
+</div>

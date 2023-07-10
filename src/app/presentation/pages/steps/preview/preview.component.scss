@@ -1,0 +1,19 @@
+table {
+    border-collapse: collapse;
+    width: 90%;
+    border: 0.01px solid var(--default-color-text);
+}
+
+th,
+tr,
+td {
+    padding: 10px;
+}
+
+.br {
+    border-right: 0.01px solid var(--default-color-text);
+}
+
+.bb {
+    border-bottom: 0.01px solid var(--default-color-text);
+}

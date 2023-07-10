@@ -1,0 +1,23 @@
+<div class="flex md:justify-content-between justify-content-end w-full">
+    <img src="../../../../assets/images/logo.png" alt="logo" height="70px" class="hidden md:block" />
+
+    <div class="align-items-center hidden md:flex flex-column">
+        <h1 class="mr-5">Welcome {{userService.getConnectedUser().name!}}</h1>
+        <h3 class="m-0">(App in Beta)</h3>
+    </div>
+
+    <div class="flex align-items-center">
+        <button pButton pRipple type="button" icon="pi pi-sign-out" class="p-button-rounded p-button-danger mr-2"
+            pTooltip="Logout" tooltipPosition="bottom" (click)="logout()"></button>
+
+        <button *ngIf="isDarkTheme() else darkBtn" pButton pRipple type="button" icon="pi pi-sun"
+            class="p-button-rounded p-button-warning" (click)="changeTheme(true)" pTooltip="Change to light theme"
+            tooltipPosition="bottom"></button>
+
+        <ng-template #darkBtn>
+            <button pButton pRipple type="button" icon="pi pi-moon" class="p-button-rounded"
+                (click)="changeTheme(false)" pTooltip="Change to dark theme" tooltipPosition="bottom"></button>
+        </ng-template>
+    </div>
+
+</div>

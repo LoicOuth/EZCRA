@@ -1,0 +1,23 @@
+.divOneNote:hover {
+    background-color: #9332BF;
+    transition: background-color 0.5s ease;
+
+}
+
+.divOneNoteSelected {
+    background-color: #9332BF;
+}
+
+.divExcel:hover {
+    background-color: #1D6F42;
+    transition: background-color 0.5s ease;
+
+}
+
+.divExcelSelected {
+    background-color: #1D6F42;
+}
+
+.visibility-hidden {
+    visibility: hidden;
+}

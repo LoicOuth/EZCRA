@@ -1,0 +1,53 @@
+<p-toast></p-toast>
+<loader *ngIf="isLoadingGlobal else form"></loader>
+<ng-template #form>
+    <div class="flex flex-column align-items-center w-full">
+        <div class="flex flex-column md:w-4 w-11">
+            <h3>Choose an organisation</h3>
+            <p-dropdown [(ngModel)]="generateInformation.organization" [options]="organizations"
+                optionLabel="AccountName" styleClass="w-full"
+                [dropdownIcon]="isLoadingOrganization ? 'pi pi-spin pi-spinner' : 'pi pi-chevron-down'"
+                placeholder="Choose one..." (onChange)="onOrganizationChange()">
+            </p-dropdown>
+        </div>
+
+        <div *ngIf="generateInformation.organization != null" class="flex flex-column mt-5 md:w-4 w-11">
+            <h3>Choose a project</h3>
+            <p-dropdown [(ngModel)]="generateInformation.project" [options]="projects" optionLabel="name"
+                styleClass="w-full" [dropdownIcon]="isLoadingProject ? 'pi pi-spin pi-spinner' : 'pi pi-chevron-down'"
+                placeholder="Choose one..." (onChange)="onProjectChange()">
+            </p-dropdown>
+        </div>
+
+        <div *ngIf="generateInformation.project != null" class="flex flex-column mt-5  md:w-4 w-11">
+            <div class="flex align-items-center">
+                <p-inputSwitch [(ngModel)]="generateInformation.isPersonalizedDate"
+                    (onChange)="onPersonalizedDateChange()">
+                </p-inputSwitch>
+                <h4 class="ml-3 my-0">Personalized date</h4>
+            </div>
+
+            <div *ngIf="!generateInformation.isPersonalizedDate else personalizedDate" class="flex flex-column">
+                <h3>Choose an iteration</h3>
+                <p-dropdown [(ngModel)]="generateInformation.iteration" [options]="iterations" optionLabel="name"
+                    styleClass="w-full"
+                    [dropdownIcon]="isLoadingIteration ? 'pi pi-spin pi-spinner' : 'pi pi-chevron-down'"
+                    placeholder="Choose one..." (onChange)="onIterationChange()">
+                </p-dropdown>
+            </div>
+
+            <ng-template #personalizedDate>
+                <h3>Choose a date range</h3>
+                <p-calendar [(ngModel)]="generateInformation.dateRange" selectionMode="range" [readonlyInput]="true"
+                    placeholder="Choose date..." [disabledDays]="[0,6]" styleClass="w-full" dateFormat="dd/mm/yy">
+                </p-calendar>
+            </ng-template>
+
+            <small *ngIf="generateInformation.dateRange.length == 2" class="mt-2 ml-2 text-base">From
+                {{generateInformation.dateRange[0].toLocaleDateString('UTC')}} to
+                {{generateInformation.dateRange[1].toLocaleDateString('UTC')}} </small>
+        </div>
+
+        <step-footer class="md:w-5 w-11 mt-8" (onNextClick)="nextPage()"></step-footer>
+    </div>
+</ng-template>

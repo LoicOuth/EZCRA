@@ -1,0 +1,5 @@
+<div class="flex w-full" [class]="showBack ? 'justify-content-between' : 'justify-content-end'">
+    <p-button *ngIf="showBack" label="Back" icon="pi pi-arrow-left" (click)="back()"></p-button>
+
+    <p-button [label]="nextText" [icon]="nextIcon" iconPos="right" (click)="onNextClick.emit()"></p-button>
+</div>

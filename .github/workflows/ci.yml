@@ -1,0 +1,91 @@
+name: CI
+
+env:
+  API_TOKEN: ${{ secrets.DEPLOYMENT_TOKEN }}
+  APP_PATH: ${{ github.workspace }}/dist/EzCRA
+  OUTPUT_PATH: ${{ github.workspace }}/dist/EzCRA
+  SONAR_USER_HOME: ${{ github.workspace }}/.sonar
+  GIT_DEPTH: "0"
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  dependencies:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Install Dependencies
+        run: npm install
+        working-directory: ${{ github.workspace }}
+      
+      - name: Cache Node Modules
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+  
+  build:
+    needs: dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Install Angular CLI
+        run: npm link @angular/cli@12.2.12
+        working-directory: ${{ github.workspace }}
+      
+      - name: Build
+        run: npm run build
+        working-directory: ${{ github.workspace }}
+      
+      - name: Cache Dist Folder
+        uses: actions/cache@v2
+        with:
+          path: ${{ github.workspace }}/dist
+          key: ${{ runner.os }}-dist-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-dist-
+      
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: dist
+          path: ${{ github.workspace }}/dist
+
+  check:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: SonarCloud Check
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  
+  deploy:
+    needs: check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Deploy to Azure Static Web Apps
+        uses: azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          app_location: ${{ env.APP_PATH }}
+          output_location: ${{ env.OUTPUT_PATH }}

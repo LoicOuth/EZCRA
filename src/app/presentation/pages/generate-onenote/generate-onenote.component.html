@@ -1,0 +1,25 @@
+<p-toast></p-toast>
+<p-dialog header="Generate in OneNote" [(visible)]="showModal" [modal]="true" styleClass="md:w-6 w-full"
+    [draggable]="false" [resizable]="false" [closable]="false">
+
+    <div class="flex justify-content-center w-full">
+
+        <p-tree [value]="oneNote" class="md:w-9 w-full" scrollHeight="350px" (onNodeExpand)="onNodeExpand($event)"
+            [loading]="isLoading" selectionMode="single" [(selection)]="selectedBook"
+            (onNodeSelect)="nodeSelect($event)">
+        </p-tree>
+
+    </div>
+
+
+    <ng-template pTemplate="footer">
+        <div class="flex w-full justify-content-end">
+            <p-button *ngIf="!isLoadingGenerate" (click)="back()" label="Close" styleClass="p-button-text"></p-button>
+            <p-button [disabled]="selectedBook == undefined" label="Generate" (click)="generate()"
+                [loading]="isLoadingGenerate" class="ml-2">
+            </p-button>
+        </div>
+
+    </ng-template>
+
+</p-dialog>

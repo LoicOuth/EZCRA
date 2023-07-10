@@ -1,0 +1,30 @@
+<div class="flex flex-column align-items-center w-full">
+    <h1 class="text-center">Choose how generate the table</h1>
+
+    <div class="flex w-5 justify-content-center my-5">
+        <div class="flex-1 flex flex-column align-items-center p-5 cursor-pointer divOneNote"
+            [class]="selected == 'onenote' ? 'divOneNoteSelected' : ''" (click)="selected = 'onenote'">
+            <img src="../../../../../assets/images/OneNote.png" height="100" alt="OneNote" />
+
+            <em class="pi pi-check mt-5 text-white" [class]="selected == 'onenote' ? '' : 'visibility-hidden'"
+                style="font-size: 2rem"></em>
+        </div>
+        <div class="flex-1 flex flex-column align-items-center p-5 cursor-pointer divExcel"
+            [class]="selected == 'excel' ? 'divExcelSelected' : ''" (click)="selected = 'excel'">
+            <img src="../../../../../assets/images/Excel.png" height="100" alt="Excel" />
+
+            <em class="pi pi-check mt-5 text-white" [class]="selected == 'excel' ? '' : 'visibility-hidden'"
+                style="font-size: 2rem"></em>
+        </div>
+    </div>
+
+    <div id="preview" class="hidden">
+
+    </div>
+
+    <step-footer class=" md:w-5 w-11 my-8" [showBack]="true" [nextText]="'Finish'" [nextIcon]="'pi pi-check-circle'"
+        (onNextClick)="nextPage()">
+    </step-footer>
+</div>
+
+<router-outlet></router-outlet>
